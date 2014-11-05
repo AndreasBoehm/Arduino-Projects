@@ -1,7 +1,7 @@
 Harmony RF Outlet
 ==================
 
-** Build your own 'One-For-All HC8300 Light Control' with your Arduino!**
+**Build your own 'One-For-All HC8300 Light Control' with your Arduino!**
 
 This Project lets you control wireless outlets with a Logitech Harmony Remote.
 
