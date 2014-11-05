@@ -16,7 +16,7 @@ because the [IR-Codes](https://github.com/mrequalizer/Arduino-Projects/blob/mast
 
 ### Breadboard
 
-![Breadboard](https://raw.githubusercontent.com/mrequalizer/Arduino-Projects/master/Harmony_RF_Outlet/resources/Harmony_RF_Outlet_Breadboard.png =600x)
+![Breadboard](https://raw.githubusercontent.com/mrequalizer/Arduino-Projects/master/Harmony_RF_Outlet/resources/Harmony_RF_Outlet_Breadboard.png)
 
 **You can get the [Fritzing](http://fritzing.org/) file [here](https://raw.githubusercontent.com/mrequalizer/Arduino-Projects/master/Harmony_RF_Outlet/resources/Harmony_RF_Outlet.fzz)**
 
