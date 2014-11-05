@@ -6,3 +6,42 @@
 #define HC8300_1ON  3895178441UL
 #define HC8300_2OFF 981317048UL
 #define HC8300_2ON  326842813UL
+#define HC8300_3OFF 1742245496UL
+#define HC8300_3ON  1087771261UL
+#define HC8300_4OFF 2468877164UL
+#define HC8300_4ON  1814402929UL
+#define HC8300_5OFF 119757624UL
+#define HC8300_5ON  3760250685UL
+#define HC8300_6OFF 846389292UL
+#define HC8300_6ON  191915057UL
+#define HC8300_7OFF
+#define HC8300_7ON
+#define HC8300_8OFF
+#define HC8300_8ON
+#define HC8300_9OFF
+#define HC8300_9ON
+
+#define HC8300_B1Off
+#define HC8300_B1On
+#define HC8300_B2Off
+#define HC8300_B2On
+#define HC8300_B3Off
+#define HC8300_B3On
+#define HC8300_B4Off
+#define HC8300_B4On
+#define HC8300_C1Off
+#define HC8300_C1On
+#define HC8300_C2Off
+#define HC8300_C2On
+#define HC8300_C3Off
+#define HC8300_C3On
+#define HC8300_C4Off
+#define HC8300_C4On
+#define HC8300_D1Off
+#define HC8300_D1On
+#define HC8300_D2Off
+#define HC8300_D2On
+#define HC8300_D3Off
+#define HC8300_D3On
+#define HC8300_D4Off
+#define HC8300_D4On
