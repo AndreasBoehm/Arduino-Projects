@@ -6,7 +6,7 @@
  * You need to add a 'One-For-All HC8300 Light Control'-Device to your Harmony,
  * because the IR-codes from this devices remote are used here.
  */
-#include "OneForAllHc8300RemoteCodes.h"
+#include "One_For_All_HC_8300_IR_Codes.h"
 
 // Libraries
 #include <RCSwitch.h>
@@ -16,10 +16,9 @@
 // PIN configuration
 #define IR_SENSOR_PIN 2
 #define RF_TRANSMITTER_PIN 4
+#define RF_TRANSMITTER_POWER 7
 
-/**
- * RF Socket Configuration
- */
+// RF Socket Configuration
 char rfSystemCode[] = "00001";
 char rfSocket1[] = "01000";
 
@@ -32,6 +31,8 @@ void setup() {
   irrecv.enableIRIn();
   irrecv.blink13(1);
   rcSwitch.enableTransmit(RF_TRANSMITTER_PIN);
+  pinMode(RF_TRANSMITTER_POWER, OUTPUT);
+  digitalWrite(RF_TRANSMITTER_POWER, HIGH);
 }
 
 void loop() {
@@ -41,9 +42,11 @@ void loop() {
       case HC8300_1ON:
         rcSwitch.switchOn(rfSystemCode, rfSocket1);
         break;
+
       case HC8300_1OFF:
         rcSwitch.switchOff(rfSystemCode, rfSocket1);
         break;
+
       default:
         break;
     }
