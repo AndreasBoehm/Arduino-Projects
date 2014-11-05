@@ -8,11 +8,19 @@ This Project lets you control wireless outlets with a Logitech Harmony Remote.
 *You need to add a 'One-For-All HC8300 Light Control'-Device to your Harmony,
 because the [IR-Codes](https://github.com/mrequalizer/Arduino-Projects/blob/master/Harmony_RF_Outlet/One_For_All_HC_8300_IR_Codes.h) from this devices remote are used here.*
 
+***Inspired by [Pascal's Königreich](http://blog.koenig-pascal.de/2013/12/funksteckdosen-ueber-eine-logitech-harmony-fernbedienung-steuern/)***
+
 ### Hardware
 
 - Arduino Pro mini
 - RF Link Transmitter 434MHZ ([TWS-BS-3](http://dlnmh9ip6v2uc.cloudfront.net/datasheets/Wireless/General/TWS-BS-3_433.92MHz_ASK_RF_Transmitter_Module_Data_Sheet.pdf))
 - IR Sensor ([TSOP38238](http://www.vishay.com/docs/82491/tsop382.pdf))
+
+### Libraries
+
+- [IRremote](https://github.com/shirriff/Arduino-IRremote)
+
+- [RCSwitch](https://code.google.com/p/rc-switch/)
 
 ### Breadboard
 
