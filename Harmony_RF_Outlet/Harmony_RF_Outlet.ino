@@ -16,12 +16,15 @@
 // PIN Configuration
 #define IR_SENSOR_DATA 2
 #define RF_TRANSMITTER_DATA 4
-#define RF_TRANSMITTER_POWER 7
 
 // RF Socket Configuration
 char rfSystemCode[] = "00001";
-char rfSocket1[] = "01000";
-char rfSocket2[] = "00100";
+char rfSocket1[] = "10000"; // Main Poweroutlet
+char rfSocket2[] = "01000"; // Couch Lamps
+char rfSocket3[] = "00100"; // TV Lamp
+
+// Delay
+unsigned long powerOffDelay = 180000; // 3 mins
 
 decode_results results;
 long lastIRCode;
@@ -30,13 +33,10 @@ IRrecv irrecv(IR_SENSOR_DATA);
 RCSwitch rcSwitch = RCSwitch();
 
 void setup() {
+  Serial.begin(9600);
   irrecv.enableIRIn();
   irrecv.blink13(1);
   rcSwitch.enableTransmit(RF_TRANSMITTER_DATA);
-
-  // ensure RF transmitter is not powered
-  digitalWrite(RF_TRANSMITTER_POWER, LOW);
-  pinMode(RF_TRANSMITTER_POWER, INPUT);
 }
 
 void loop() {
@@ -47,21 +47,59 @@ void loop() {
       lastIRCode = results.value;
     }
 
+    Serial.print("Received code ");
+    Serial.println(lastIRCode, HEX);
+
     switch(lastIRCode) {
-      case HC8300_1ON:
-        switchSocketOn(rfSocket1);
+      case HC8300_1ON: // Socket1 ON
+        Serial.println("Switching Main-Poweroutlet on");
+        rcSwitch.switchOn(rfSystemCode, rfSocket1);
         break;
 
-      case HC8300_1OFF:
-        switchSocketOff(rfSocket1);
+      case HC8300_1OFF: // Socket1 OFF
+        Serial.println("Switching Main-Poweroutlet off");
+        rcSwitch.switchOff(rfSystemCode, rfSocket1);
         break;
 
-      case HC8300_2ON:
-        switchSocketOn(rfSocket2);
+      case HC8300_2ON: // Socket2 ON
+        Serial.println("Switching Couch Lamps on");
+        rcSwitch.switchOn(rfSystemCode, rfSocket2);
         break;
 
-      case HC8300_2OFF:
-        switchSocketOff(rfSocket2);
+      case HC8300_2OFF: // Socket2 OFF
+        Serial.println("Switching Couch Lamps off");
+        rcSwitch.switchOff(rfSystemCode, rfSocket2);
+        break;
+
+      case HC8300_3ON: // Socket3 ON
+        Serial.println("Switching TV Lamp on");
+        rcSwitch.switchOn(rfSystemCode, rfSocket3);
+        break;
+
+      case HC8300_3OFF: // Socket3 OFF
+        Serial.println("Switching TV Lamp off");
+        rcSwitch.switchOff(rfSystemCode, rfSocket3);
+        break;
+
+      case HC8300_9ON: // ALL ON
+        rcSwitch.switchOn(rfSystemCode, rfSocket1);
+        rcSwitch.switchOn(rfSystemCode, rfSocket2);
+        rcSwitch.switchOn(rfSystemCode, rfSocket3);
+        break;
+
+      case HC8300_9OFF: // ALL OFF
+        Serial.println("Switching All OFF");
+        rcSwitch.switchOff(rfSystemCode, rfSocket3);
+        rcSwitch.switchOff(rfSystemCode, rfSocket2);
+        rcSwitch.switchOff(rfSystemCode, rfSocket1);
+        break;
+
+      case HC8300_B1Off: // ALL OFF with Delay
+        delay(powerOffDelay);
+        Serial.println("Switching All OFF");
+        rcSwitch.switchOff(rfSystemCode, rfSocket3);
+        rcSwitch.switchOff(rfSystemCode, rfSocket2);
+        rcSwitch.switchOff(rfSystemCode, rfSocket1);
         break;
 
       default:
@@ -70,28 +108,4 @@ void loop() {
 
     irrecv.resume();
   }
-}
-
-void switchSocketOn(char socketCode[]) {
-  switchSocket(true, socketCode);
-}
-
-void switchSocketOff(char socketCode[]) {
-  switchSocket(false, socketCode);
-}
-
-void switchSocket(boolean on, char socketCode[]) {
-  // Power the RF Transmitter
-  pinMode(RF_TRANSMITTER_POWER, OUTPUT);
-  digitalWrite(RF_TRANSMITTER_POWER, HIGH);
-
-  if(on) {
-    rcSwitch.switchOn(rfSystemCode, socketCode);
-  } else {
-    rcSwitch.switchOff(rfSystemCode, socketCode);
-  }
-
-  // Unpower the RF Transmitter
-  digitalWrite(RF_TRANSMITTER_POWER, LOW);
-  pinMode(RF_TRANSMITTER_POWER, INPUT);
 }
